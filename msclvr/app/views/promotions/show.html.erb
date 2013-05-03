@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+
+<div width="500">
+	<table cellpadding="5" border="1" width="500">
+		<tr>
+			<th>Promotion:</th>
+			<th>Song:</th>
+			<th>URL:</th>
+			<th>Custom Ending:</th>
+			<th>Slug:</th>
+			<th>Edit:</th>
+		</tr>
+		<tr>
+			<td> <%= @promotion.id %> </td>
+			<td> <%= Song.find(@promotion.song_id).track_name %> </td>
+			<td> <%= @promotion.track_url %> </td>
+			<td> <%= @promotion.custom_ending %> </td>
+			<td> <%= @promotion.slug %> </td>
+			<td> <%= link_to 'edit', edit_promotion_path(@promotion) %> </td>
+		</tr>	
+	</table>
+</div>
+</br>
+<%= link_to 'New Promotion', new_promotion_path %> |
+<%= link_to 'Edit', edit_promotion_path(@promotion) %> |
+<%= link_to 'Back', promotions_path %> |
+<%= link_to 'My Promotions', promotions_path %> |
+

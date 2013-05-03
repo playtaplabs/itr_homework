@@ -1,0 +1,26 @@
+
+
+
+<!-- This is the landing page at the moment -->
+<h1>Welcome to MscLvr.com</h1>
+</br>
+<% if affiliate_signed_in? %>
+	<h3> Hey there, <u><%= current_affiliate.username.capitalize %></u>!</h3>
+	<p> <%= link_to "Let's Promote a Song!", new_promotion_path, :style => 'color: #FFFFFF', :class => 'btn btn-large btn-primary'%> </p>
+	<p> <%= link_to "View Current Promotions!", promotions_path, :style => 'color: #FFFFFF',:class => 'btn btn-large btn-info' %> </p>
+
+	<!-- I need a
+		1. ...button to create a new promotion
+		2. ...button to go to their dashboard
+		3. ...button to go to their promotions lists
+	-->
+<% else %>
+	<h3> 
+		This web app is a <u>teenie</u>-<u>weenie</u>-Beta version of a larger music project! </br></br> The ultimate goal is to help music creators (and their supporters) to promote their artistry through the interwebs. If you are an Artist and would like to promote your music using 'MscLvr' please send an email to 
+		<%= mail_to "hello@playtapm.com", nil , :subject => "Dude, Your App is F'in Awesome!" %> and we will add you to our mailing list for updates!</br></br> At the moment the service is on an <u>invite-only</u> basis while we iron out all the kinks!  
+	</h3>
+<% end %>
+
+	 
+
+<%#= link_to 'sign out', destroy_affiliate_session_path, :method => :delete %>

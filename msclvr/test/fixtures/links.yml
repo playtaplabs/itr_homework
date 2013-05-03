@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  promotion_id: MyString
+  url: MyString
+  slug: MyString
+
+two:
+  promotion_id: MyString
+  url: MyString
+  slug: MyString

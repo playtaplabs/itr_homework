@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  affiliate_id: MyString
+  promotion_id: MyString
+  song_id: MyString
+  track_url: MyString
+  slug: MyString
+  short_url: MyString
+
+two:
+  affiliate_id: MyString
+  promotion_id: MyString
+  song_id: MyString
+  track_url: MyString
+  slug: MyString
+  short_url: MyString

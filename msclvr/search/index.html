@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Song Search</title>
+<meta http-equiv="Content-type" content="text/html; charset=iso-8859-1">
+
+</head>
+<body bgcolor="#FFFFFF">
+
+<form name="searchForm" id="searchForm">
+
+	<input id="term" name="term" type="text" value=""/>
+	<input id="myButton" name="myButton" type="submit" value="Search"/>
+	<input id="media" name="media" value="music" type="hidden" />
+	<input id="entity" name="entity" value="musicTrack" type="hidden" />
+	
+
+</form>
+
+</body>
+
+<script src="/search/js/jquery.min.js"></script>
+
+<script>
+
+// variable to hold request
+var request;
+
+// bind to the submit event of our form
+$("#searchForm").submit(function(event){
+    // abort any pending request
+    if (request) {
+        request.abort();
+    }
+	
+
+    // setup some local variables
+    var $form = $(this);
+    // let's select and cache all the fields
+    var $inputs = $form.find("input, select, button, textarea");
+    // serialize the data in the form
+    var serializedData = $form.serialize();
+    
+    // let's disable the inputs for the duration of the ajax request
+    $inputs.prop("disabled", true);
+    
+    // fire off the request to /form.php
+    var request = $.ajax({
+        url: "http://itunes.apple.com/search?",
+        type: "get",
+        data: serializedData
+    });
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+        // log a message to the console
+        //console.log(response);
+
+		createTable(jQuery.parseJSON(response).results);
+    });
+
+    // callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // log the error to the console
+       
+        console.error(
+            "The following error occured: "+
+            textStatus, errorThrown
+        );
+    });
+
+    // callback handler that will be called regardless
+    // if the request failed or succeeded
+    request.always(function () {
+        // reenable the inputs
+        $inputs.prop("disabled", false);
+    });
+	
+    // prevent default posting of form
+    event.preventDefault();
+});
+
+var createTable = function (results) {
+	var table = document.createElement("TABLE");
+	table.id = "resultsTable";
+	
+	for (i = 0; i < results.length; i++) {
+		var row = table.insertRow(-1);
+		row.id = i;
+		
+		var resultRow = results[i];
+		if (resultRow.wrapperType != "track" || resultRow.kind != "song") {
+			continue;
+		}
+		
+		for (field in resultRow) {
+			if (field == "artistName" || field == "collectionName" || field == "trackName") {
+				createCell(row, field, resultRow[field]);
+			}
+		}
+	} 
+
+	function createCell(row, elementName, elementValue) {
+		var cell = row.insertCell(-1);
+		cell.id = row.id + "_" + elementName;
+		var url = "";
+		if (field == "trackName") {
+			url = resultRow.previewUrl;
+		}
+		if (url.length > 0) {
+			cell.innerHTML = "<a href='"+url+"' target='preview'>"+elementValue+"</a>";
+		} else {
+			cell.innerHTML = elementValue;
+		}
+	}
+	
+	document.body.appendChild(table);
+}
+
+</script>
+
+</html>

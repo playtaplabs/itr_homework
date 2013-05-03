@@ -1,0 +1,29 @@
+<%= form_for(@promotion) do |f| %>
+  <% if @promotion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@promotion.errors.count, "error") %> prohibited this promotion from being saved:</h2>
+
+      <ul>
+      <% @promotion.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :track_name, "Find your song below:" %>
+    <%= f.collection_select :song_id, @allsongs, :id, :track_name, :prompt => "- Select Track -" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :custom_ending, "Custom Ending?" %>
+    <%= f.text_field :custom_ending %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "DO IT!", :style =>'color: #FFFFFF',:class => 'btn btn-large btn-info'  %>
+  </div>
+
+
+<% end %>

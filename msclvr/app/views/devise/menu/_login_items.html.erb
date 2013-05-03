@@ -1,0 +1,12 @@
+<% if affiliate_signed_in? %>
+	<p> 
+		What's up, <u><%= current_affiliate.username.capitalize %></u>? You trying to 
+		<b><%= link_to 'Logout', destroy_affiliate_session_path, :method => :delete %></b>?
+	</p>
+<% else %>
+	<p>
+		Current Status: '<u>logged out</u>'. </br>
+		<b><%= button_to('Login / Sign Up?', new_affiliate_session_path, :class => 'btn btn-mini btn-primary') %></b>	
+	</p>
+	
+<% end %>
